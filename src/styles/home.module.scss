@@ -1,0 +1,211 @@
+.main {
+    width: 1360px;
+    margin: auto;
+    margin: 2rem auto;
+    display: flex;    
+    gap: 2rem;
+}
+
+
+.filter {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;    
+
+    &Category {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        width: 100%;
+    
+        &:last-child, &:last-child select  {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        & .radio {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            & p {
+                margin: auto 0 ;
+            }
+        }
+    }
+
+    &Date {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        width: 100%;
+
+        & > input {
+            width: 50%;
+        }
+    }
+    
+    & input, & select {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 0;
+        width: 100%;
+        border-radius: 6px;
+
+        &:not(input[type=radio]):focus {
+            outline: 2px solid red;
+            transition: 0.05s ease-in-out;
+        } 
+    }
+    
+    & select {
+        color: #757575;
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        outline: none;
+    }
+    
+    & .wrapperInput {
+        width: 100%;
+        position: relative;
+        border-radius: 2px;
+    }
+    & .inputArrow {
+        width: 18px;
+        height: 18px;
+        font-size: 1rem;
+        right: 15px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+    
+        & > img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }    
+
+    &ButtonContainer {
+        display: flex;
+        gap: 10px;
+    }
+
+    &Button  {
+        width: calc((100% - 1rem) / 2);        
+        border-radius: 20px;
+        border: 2px solid #ff4b2b;
+        background-color: #ff4b2b;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 12px 0;
+        letter-spacing: 1px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+
+        &:active {
+            transform: scale(0.95);
+            transition: 0.1s;
+        }     
+        
+        &Preset {
+            width: calc((100% - 10px) / 4);
+            padding: 5px 0;
+            border: 2px solid #ff4b2b;
+            background-color: transparent;
+            color: #ff4b2b;
+            
+            &.active {
+                background-color: #ff4b2b;
+                color: #fff;
+            }
+        }
+    }
+
+    &Reset {
+        background-color: #ffffff;
+        color: #ff4b2b;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+
+    &Header {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        gap: 1.5rem;
+
+        &Button {
+            display: block;
+            width: 20px;
+            height: 20px;
+
+            & > svg {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    &.row .cardList {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.pagination {
+
+    &Wrapper {
+        flex-grow: 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 2.5rem;
+    }
+
+}
+
+.cardList {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 16px;
+}
+
+.cardItem {
+    position: relative;
+    box-shadow: inset 0 0 0 1px #dadcde;
+    padding: 15px;
+    width: 100%;
+    border-radius: 12px;
+
+    &:hover {
+        box-shadow: 0 2px 8px #bfbfbf;
+        border-color: transparent;
+    }
+}
+
+.cardSelected {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.cardTitle {
+    width: calc(100% - 32px);
+    text-overflow: ellipsis;
+    margin-bottom: .7rem;
+}

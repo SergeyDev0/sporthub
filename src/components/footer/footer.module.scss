@@ -1,0 +1,158 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    padding: 30px 30px 20px 30px;
+    color: #fff;
+    background-color: #2f2f2f;
+    border-top: 1px solid #e5e5e5;
+
+    &Wrapper {
+        width: 1360px;
+
+        @media screen and (max-width: 1420px) {
+            width: 100%;
+        }
+
+        & > .row {
+            display: flex;
+            width: 100%;
+
+            @media screen and (max-width: 950px) {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    }
+
+    &Nav {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 12rem;
+        flex-grow: 1;
+
+        @media screen and (max-width: 1200px) {
+            margin-left: 2rem;
+            justify-content: flex-end;
+            gap: 6rem;
+        }
+
+        @media screen and (max-width: 1100px) {
+            gap: 5rem;
+        }
+
+        @media screen and (max-width: 950px) {
+            gap: 6rem;
+            margin-left: 0;
+        }
+    }
+
+    &Addr {
+        margin-right: 1.25em;
+        margin-bottom: 2em;
+
+        @media screen and (max-width: 950px) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 0 1.5rem 0;
+        }
+    }
+
+    &Logo {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 15px;
+
+        & > img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+
+    &Addr h2 {
+        margin-top: .5rem;
+        font-size: 15px;
+        font-weight: 500;
+
+        @media screen and (max-width: 950px) {
+            font-weight: 600;
+        }
+    }
+
+    & address {
+        font-style: normal;
+        color: #999;
+
+        @media screen and (max-width: 950px) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 1.1rem;
+        }
+    }
+
+    &Btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        max-width: max-content;
+        background-color: #fff;
+        border-radius: 100px;
+        color: #2f2f2f;
+        line-height: 0;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        padding: 0 1.5em;
+    }
+
+    & ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    & li {
+        line-height: 2em;
+    }
+
+    & .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.navTitle {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.navUl a {
+    color: #999;
+}
+
+.legal {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #999;
+
+    @media screen and (max-width: 950px) {
+        margin-top: 2rem;
+        gap: .5rem;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+}
+
+.legalLinks {
+    display: flex;
+    align-items: center;
+}
+
+.heart {
+    color: red;
+}

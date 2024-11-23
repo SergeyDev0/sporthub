@@ -1,0 +1,129 @@
+
+.main {
+    width: 100%;
+    
+    & h3 {
+        font-size: 22px;
+    }
+
+    & p {
+        font-size: 18px;
+    }
+}
+
+
+.aboutText {
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    font-size: 20px;
+
+    & > span {
+        font-weight: 600;
+    }
+}
+
+.aboutSectionText {
+    margin-top: 2rem !important;
+
+    & .aboutTitle {
+        margin-bottom: 1rem;
+    }
+
+    & .aboutText {
+        font-size: 20px;
+    }
+}
+
+.aboutTitle {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.mission {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem 0;
+    background-color: #f2f2f2;
+    margin: 2rem 0;
+    border-radius: 60px;
+
+    & .aboutText {
+        font-size: 20px;
+    }
+
+    &Wrapper {
+        width: 1360px;
+    }
+
+    &List {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    &Item {
+        padding: 3rem;
+        border-radius: 45px;
+        background-color: #faf9f5;
+
+        & > img {
+            width: 100%;
+            border-radius: 25px;
+            display: block;
+        }
+
+        & > h3 {
+            margin-top: 1.5rem;
+            margin-bottom: .5rem;
+        }
+    }
+}
+
+.teamList {
+    margin: 1rem 0 3rem 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+}
+
+.teamItem {
+    padding: 1.5rem;
+    border-radius: 45px;
+    background-color: #f2f2f2;
+    text-align: center;
+
+    &.captain {
+        position: relative;
+        background-color: #2f2f2f;
+        color: #fff;
+
+        &::after {
+            position: absolute;
+            content: '';
+            display: block;
+            background-image: url(/src/assets/crown.svg);
+            background-repeat: no-repeat;
+            height: 42px;
+            background-position: center 0;
+            bottom: calc(100% + 2px);
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+
+    & > img {
+        width: 100%;
+        border-radius: 25px;
+        display: block;
+    }
+
+    & > h3 {
+        margin-top: 1.5rem;
+        font-size: 21px;
+        margin-bottom: .5rem;
+    }
+}
