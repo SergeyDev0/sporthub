@@ -22,7 +22,7 @@ const Auth = () => {
         data.append("email", email);
         data.append("password", password);
 
-        if (email.length > 0, password.length > 0) {
+        if ((email.length > 0, password.length > 0)) {
             let config = {
                 method: "post",
                 maxBodyLength: Infinity,
@@ -49,11 +49,11 @@ const Auth = () => {
     let postReg = async (e) => {
         e.preventDefault();
         let data = {
-            "userName": fullName,
-            "email": email,
-            "password": password,
+            userName: fullName,
+            email: email,
+            password: password,
         };
-        if (fullName.length > 0, email.length > 0, password.length > 0) {
+        if ((fullName.length > 0, email.length > 0, password.length > 0)) {
             let config = {
                 method: "post",
                 maxBodyLength: Infinity,
@@ -115,14 +115,23 @@ const Auth = () => {
                         >
                             Зарегистрироваться
                         </button>
+                        <div className={styles.mobileView}>
+                            <p>Уже есть аккаунт?</p>
+                            <button
+                                className={`${styles.ghost} ${styles.mobileViewButton}`}
+                                onClick={() => setSignOpen(false)}
+                            >
+                                Войти
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <div
                     className={`${styles.formContainer} ${styles.signInContainer}`}
                 >
                     <form onSubmit={postAuth}>
-                            <img className={styles.logo} src={Logo} alt="Логотип" />
-                            <h1>Войти</h1>
+                        <img className={styles.logo} src={Logo} alt="Логотип" />
+                        <h1>Войти</h1>
                         <input
                             onChange={(e) => {
                                 setEmail(e.target.value);
@@ -145,6 +154,16 @@ const Auth = () => {
                         >
                             Войти
                         </button>
+
+                        <div className={styles.mobileView}>
+                            <p>Нет аккаунта?</p>
+                            <button
+                                className={`${styles.ghost} ${styles.mobileViewButton}`}
+                                onClick={() => setSignOpen(true)}
+                            >
+                                Зарегистрироваться
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <div className={styles.overlayContainer}>

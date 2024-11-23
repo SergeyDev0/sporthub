@@ -48,7 +48,7 @@ const Profile = () => {
                         </div>
                         <div className={styles.profilePreviewPartic}>
                             <h3 className={styles.profilePreviewTitle}>
-                                Учавствует
+                                Участвует
                             </h3>
                             <div className={styles.profilePreviewDescription}>
                                 <h4>Хакатон ФСП г. Ставрополь 17:00 - 21:00</h4>

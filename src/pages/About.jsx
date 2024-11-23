@@ -72,7 +72,7 @@ const About = () => {
 	                    </ul>
                     </div>
                 </section>
-                <section className="`${styles.aboutTeam} section`">                    
+                <section className={`${styles.aboutTeam} section`}>                    
                     <h2 className={styles.aboutTitle}>Наша команда</h2>
                     <ul className={styles.teamList}>
 						{

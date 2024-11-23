@@ -232,28 +232,6 @@ const Settings = observer(() => {
                                                 type="text"
                                                 onChange={(e) => {
                                                     let value = Number(e.target.value) + 1;
-                                                    setCity(e.target.options[value].text);
-                                                }}
-                                            >
-                                                <option
-                                                    selected
-                                                    disabled
-                                                    value="0"
-                                                >
-                                                    Выберите город
-                                                </option>
-                                            </select>
-                                            <div className={styles.inputArrow}>
-                                                <img src={arrowDown} />
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={styles.wrapperInput}>
-                                            <select
-                                                type="text"
-                                                onChange={(e) => {
-                                                    let value = Number(e.target.value) + 1;
                                                     console.log(e.target.options[value].text);
                                                 }}
                                             >

@@ -225,3 +225,22 @@
     height: 60px;
     margin-bottom: 1.5rem;
 }
+
+.mobileView {
+    display: none;    
+}
+
+@media (max-width: 750px) {
+    .mobileView {
+        display: flex;
+
+        &Button {
+            display: block;
+            width: auto;
+            height: 40px;
+            padding: 5px 10px !important;
+            color: #ff4b2b !important;
+            border: 2px solid #ff4b2b !important;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import { IconButton } from '@mui/material/IconButton';
+import styles from "./headerLink.module.scss";
 
 const HeaderLink = ({ children, url, title, className }) => {
     return (

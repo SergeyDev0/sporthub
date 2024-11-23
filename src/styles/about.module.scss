@@ -47,6 +47,7 @@
 .mission {
     width: 100%;
     display: flex;    
+    align-items: center;
     flex-direction: column;
     padding: 2rem 0;
     background-color: #f2f2f2;
@@ -59,7 +60,7 @@
     
     &Wrapper {
         width: 1360px;
-
+        
         @media (max-width: 1420px) {
             width: 100%;
             padding: 0 20px;
@@ -68,6 +69,7 @@
     
     &List {
         display: flex;        
+        justify-content: center;
         flex-wrap: wrap;
         gap: 1rem;        
     }
@@ -99,7 +101,11 @@
     }
 }
 
-.aboutSectionText
+.aboutTeam {
+    width: 100%;
+    padding: 0 20px;
+}
+
 .teamList {
     margin: 1rem 0 4rem 0;
     display: grid;
