@@ -1,13 +1,12 @@
 import React from "react";
-import Avatar from "@mui/material/Avatar";
-import Header from "../components/header/Header";
-import Footer from "../components/footer/Footer";
 import styles from "../styles/profile.module.scss";
+import Layout from "../components/layout/Layout";
+import Avatar from "@mui/material/Avatar";
+import globalStore from "../store/globalStore";
 
 const Profile = () => {
     return (
-        <>
-            <Header />
+        <Layout>
             <main className={styles.main}>
                 <div className={styles.profile}>
                     <div className={styles.profileCard}>
@@ -32,8 +31,7 @@ const Profile = () => {
                     </div>
                 </div>
             </main>
-            <Footer />
-        </>
+        </Layout>
     );
 };
 

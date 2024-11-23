@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import Layout from "../components/Layout/Layer";
+import styles from "../styles/settings.module.scss";
 import Tabs from "@mui/material/Tabs";
-import Header from "../components/header/Header";
-import Footer from "../components/footer/Footer";
 import axios from "axios";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -10,7 +10,7 @@ import { CITIES } from "../data/cities.data.js";
 import PropTypes from "prop-types";
 import arrowDown from "../assets/arrowDown.svg";
 import { Avatar } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import { Close, Password } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -19,9 +19,13 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { HexColorPicker } from "react-colorful";
+import {
+    ThemeProvider,
+    createTheme,
+    useColorScheme,
+} from "@mui/material/styles";
 import { observer } from "mobx-react-lite";
 import globalStore from "../store/globalStore";
-import styles from "../styles/settings.module.scss";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -81,7 +85,7 @@ const Settings = observer(() => {
 
     let getDataProfile = async (e) => {
         let data = {
-            jwt: globalStore.accessToken,
+            "jwt": globalStore.accessToken,
         };
 
         let config = {
@@ -152,8 +156,7 @@ const Settings = observer(() => {
     }
 
     return (
-        <>
-            <Header />
+        <Layout>
             <main className={styles.main}>
                 <Box
                     sx={{
@@ -228,13 +231,8 @@ const Settings = observer(() => {
                                             <select
                                                 type="text"
                                                 onChange={(e) => {
-                                                    let value =
-                                                        Number(e.target.value) +
-                                                        1;
-                                                    setCity(
-                                                        e.target.options[value]
-                                                            .text
-                                                    );
+                                                    let value = Number(e.target.value) + 1;
+                                                    setCity(e.target.options[value].text);
                                                 }}
                                             >
                                                 <option
@@ -255,13 +253,8 @@ const Settings = observer(() => {
                                             <select
                                                 type="text"
                                                 onChange={(e) => {
-                                                    let value =
-                                                        Number(e.target.value) +
-                                                        1;
-                                                    console.log(
-                                                        e.target.options[value]
-                                                            .text
-                                                    );
+                                                    let value = Number(e.target.value) + 1;
+                                                    console.log(e.target.options[value].text);
                                                 }}
                                             >
                                                 <option
@@ -383,8 +376,7 @@ const Settings = observer(() => {
                     </div>
                 </Box>
             </main>
-            <Footer />
-        </>
+        </Layout>
     );
 });
 
