@@ -20,6 +20,12 @@
         padding: 0 20px;
     }
 
+    &Title {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 0.75rem;
+    }
+
     &Card {
         display: flex;
         gap: 1rem;
@@ -45,26 +51,20 @@
         }
     }
 
-    &Preview {
+    &Achievements {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
         gap: 1rem;
 
-        &Achievs {
+        &Wrapper {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
             background: #f2f2f2;
             color: #000;
             border-radius: 20px;
             padding: 2rem;
             font-weight: 400;
-
-            & > h3 {
-                font-weight: 600;
-                font-size: 24px;
-            }
         }
 
         &Subs {
@@ -72,10 +72,6 @@
             color: #000;
             border-radius: 20px;
             padding: 10px 20px;
-
-            & > h3 {
-                font-size: 24px;
-            }
             
             &Btn {
                 padding: 5px 10px;
@@ -87,32 +83,65 @@
                 border-radius: 10px;
             }
         }
-
-        &Partic {
-            background: #f2f2f2;
-            color: #000;
-            border-radius: 20px;
-            padding: 10px 20px;
-
-            & > h3 {
-                font-size: 24px;
-            }
+        
+        &Title {
+            font-weight: 400;
+            font-size: 20px;
+            color: #929292;
         }
 
-        &Description {
+        &Item {
             display: flex;
             align-items: center;
-            
-            & > h4 {
-                font-weight: 400;
-                font-size: 20px;
-                color: #929292;
+            padding: 0.75rem 0;
+            border-top: 1px solid rgb(207, 207, 207);
+
+            &:first-of-type {
+                border-top: none;
             }
 
             & .icon {
                 color: #929292; 
                 margin-right: 16px;
             }
+        }
+    }
+
+    &Events {
+        &Partic {
+            background: #f2f2f2;
+            color: #000;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+        
+        &Item {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid rgb(207, 207, 207);
+        
+            &:first-of-type {
+                border-top: none;
+            }
+        
+            & .icon {
+                color: #929292; 
+                margin-right: 16px;
+            }
+
+            &Header {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        &Title {
+            font-weight: 500;
+            font-size: 20px;
         }
     }
 }

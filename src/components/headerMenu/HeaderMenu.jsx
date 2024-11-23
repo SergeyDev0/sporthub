@@ -5,8 +5,9 @@ import { Logout, Person } from "@mui/icons-material";
 import { Info, Settings } from "lucide-react";
 import globalStore from "../../store/globalStore";
 import styles from "./headerMenu.module.scss";
+import { observer } from "mobx-react-lite";
 
-const HeaderMenu = () => {
+const HeaderMenu = observer(() => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     
@@ -125,6 +126,6 @@ const HeaderMenu = () => {
             </Menu>
         </div>
     );
-};
+});
 
 export default HeaderMenu;

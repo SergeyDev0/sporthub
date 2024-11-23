@@ -8,9 +8,6 @@ import Card from "../components/card/Card";
 import { FilterAlt } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import CloseIcon from "@mui/icons-material/Close";
@@ -22,23 +19,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Home = () => {
     const [isColumnDisplay, setIsColumnDisplay] = React.useState(true);
     const [isActiveFilterButton, setIsActiveFilterButton] = React.useState(1);
-    const [quantity, setQuantity] = React.useState([1, 500]);
-    const [deadlineStart, setDeadlineStart] = React.useState("");
-    const [deadlineEnd, setDeadlineEnd] = React.useState("");
-    const [sport, setSport] = React.useState("");
+    const [quantity, setQuantity] = React.useState([1, 5000]);
+    const [deadlineStart, setDeadlineStart] = React.useState("0001-01-01");
+    const [deadlineEnd, setDeadlineEnd] = React.useState("9999-12-31");
     const [place, setPlace] = React.useState("");
-    const [gender, setGender] = React.useState("");
-    const [age, setAge] = React.useState("");
-    // задать значения по дефолту, а эти значения перенести в data для запроса
     const [filter, setFiter] = React.useState({
         deadlineStart: deadlineStart,
         deadlineEnd: deadlineEnd,
-        time: isActiveFilterButton,
-        sport: sport,
+        countPeopleMin: quantity[0],
+        countPeopleMax: quantity[1],
         place: place,
         quality: quantity,
-        gender: gender,
-        age: age,
     });
     const [open, setOpen] = React.useState(false);
 
@@ -84,8 +75,8 @@ const Home = () => {
                         <h3>Сроки проведения</h3>
                         <div className={styles.filterDate}>
                             <input
-                                onChange={() =>
-                                    setDeadlineStart(e.target.value)
+                                onChange={(e) =>
+                                    console.log(e.target.value)
                                 }
                                 type="date"
                                 id="startDate"
@@ -467,7 +458,7 @@ const Home = () => {
                             onChange={handleAgeChange}
                             valueLabelDisplay="auto"
                             min={1}
-                            max={1000}
+                            max={5000}
                             style={{ color: "#ff4a2c" }}
                         />
                     </div>

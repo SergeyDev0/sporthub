@@ -227,12 +227,29 @@
 }
 
 .mobileView {
-    display: none;    
+    display: none;
 }
 
-@media (max-width: 750px) {
+@keyframes mobileAnim {
+    0% {
+        width: 0;
+        transform: translateX(-192px);
+    }
+    50% {
+        width: 385px;
+    }
+    100% {
+        width: 0;
+        transform: translateX(192px);
+    }
+}
+
+@media (max-width: 700px) {
     .mobileView {
+        margin-top: 20px;
         display: flex;
+        justify-content: center;
+        align-items: center;
 
         &Button {
             display: block;
@@ -241,6 +258,40 @@
             padding: 5px 10px !important;
             color: #ff4b2b !important;
             border: 2px solid #ff4b2b !important;
+        }
+
+        & p {
+            margin: auto 20px;
+            font-weight: 400;
+        }
+    }
+
+    .container {
+        width: 385px;
+    }
+    
+    .formContainer {
+        padding: 0 30px !important;
+        transform: translate(0) !important;
+        width: 100%;
+    }
+
+    .overlayContainer {
+        width: 0;
+    }
+
+    .overlayExpand {
+        height: 480px;
+        width: 0;
+        z-index: 10;
+        display: block;
+        position: absolute;
+        background: linear-gradient(to right, #ff4b2b, #ff416c);
+        transform: translateX(-192px);
+        border-radius: 10px;
+
+        &Anim {
+            animation: mobileAnim 0.55s ease-in-out;
         }
     }
 }

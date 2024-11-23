@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/darkLogo.svg";
 import styles from "../styles/auth.module.scss";
 import globalStore from "../store/globalStore";
+import { observer } from "mobx-react-lite";
 
-const Auth = () => {
+const Auth = observer(() => {
     const [isSignOpen, setSignOpen] = React.useState(false);
     const [isClick, setIsClick] = React.useState(false);
     const [email, setEmail] = React.useState("");
@@ -13,6 +14,20 @@ const Auth = () => {
 
     const isSignOpenClass = isSignOpen ? styles.rightPanelActive : "";
     const isSubmitButtonClass = isClick ? styles.wall : "";
+
+    const [isExpanded, setIsExpanded] = React.useState(false);
+
+    const handleExpand = () => {
+        setIsExpanded(true);
+    };
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsExpanded(false);
+        }, 550);
+
+        return () => clearTimeout(timer);
+    }, [isExpanded]);
 
     const navigate = useNavigate();
 
@@ -78,6 +93,7 @@ const Auth = () => {
     };
     return (
         <main className={styles.main}>
+            <div className={`${styles.overlayExpand} ${isExpanded ? styles.overlayExpandAnim : ''}`} />
             <div
                 className={`${styles.container} ${isSignOpenClass} ${isSubmitButtonClass}`}
             >
@@ -119,7 +135,7 @@ const Auth = () => {
                             <p>Уже есть аккаунт?</p>
                             <button
                                 className={`${styles.ghost} ${styles.mobileViewButton}`}
-                                onClick={() => setSignOpen(false)}
+                                onClick={() => {setSignOpen(false); handleExpand();}}
                             >
                                 Войти
                             </button>
@@ -159,7 +175,7 @@ const Auth = () => {
                             <p>Нет аккаунта?</p>
                             <button
                                 className={`${styles.ghost} ${styles.mobileViewButton}`}
-                                onClick={() => setSignOpen(true)}
+                                onClick={() => {setSignOpen(true); handleExpand();}}
                             >
                                 Зарегистрироваться
                             </button>
@@ -203,6 +219,6 @@ const Auth = () => {
             </div>
         </main>
     );
-};
+});
 
 export default Auth;
