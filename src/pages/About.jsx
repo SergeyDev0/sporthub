@@ -1,14 +1,14 @@
 import React from "react";
-import Layer from "../components/Layout/Layer";
 import Mission1 from "../assets/mission1.jpg";
 import Mission2 from "../assets/mission2.jpg";
 import Mission3 from "../assets/mission3.jpg";
 import { DEVS } from "../data/devs.data";
 import styles from "../styles/about.module.scss";
+import Layout from './../components/layout/Layout';
 
 const About = () => {
     return (
-        <Layer>
+        <Layout>
             <main className={styles.main}>
                 <section className={`${styles.aboutSectionText} section`}>
 					<h2 className={styles.aboutTitle}>О проекте</h2>
@@ -87,7 +87,7 @@ const About = () => {
                     </ul>
                 </section>
             </main>
-        </Layer>
+        </Layout>
     );
 };
 

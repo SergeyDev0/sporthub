@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Layer from "../components/Layout/Layer";
-import styles from "../styles/settings.module.scss";
+import Layout from "../components/Layout/Layout.jsx";
 import Tabs from "@mui/material/Tabs";
 import axios from "axios";
 import Tab from "@mui/material/Tab";
@@ -10,7 +9,7 @@ import { CITIES } from "../data/cities.data.js";
 import PropTypes from "prop-types";
 import arrowDown from "../assets/arrowDown.svg";
 import { Avatar } from "@mui/material";
-import { Close, Password } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -19,13 +18,9 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { HexColorPicker } from "react-colorful";
-import {
-    ThemeProvider,
-    createTheme,
-    useColorScheme,
-} from "@mui/material/styles";
 import { observer } from "mobx-react-lite";
 import globalStore from "../store/globalStore";
+import styles from "../styles/settings.module.scss";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -156,7 +151,7 @@ const Settings = observer(() => {
     }
 
     return (
-        <Layer>
+        <Layout>
             <main className={styles.main}>
                 <Box
                     sx={{
@@ -376,7 +371,7 @@ const Settings = observer(() => {
                     </div>
                 </Box>
             </main>
-        </Layer>
+        </Layout>
     );
 });
 

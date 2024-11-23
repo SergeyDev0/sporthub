@@ -1,9 +1,9 @@
 import React from "react";
-import Layer from "../components/Layout/Layer";
-import styles from "../styles/selected.module.scss";
 import Slider from "@mui/material/Slider";
 import { Favorite } from "@mui/icons-material";
 import { HeartIcon } from "lucide-react";
+import Layout from "../components/Layout/Layout";
+import styles from "../styles/selected.module.scss";
 
 const Selected = () => {
     const [isColumnDisplay, setIsColumnDisplay] = React.useState(true);
@@ -12,7 +12,7 @@ const Selected = () => {
     const contentClass = !isColumnDisplay ? styles.row : "";
 
     return (
-        <Layer>
+        <Layout>
             <main className={styles.main}>
                 <div className={`${styles.content} ${contentClass}`}>
                     {/* {[].map((item, i) => (
@@ -378,7 +378,7 @@ const Selected = () => {
                     </ul>
                 </div>
             </main>
-        </Layer>
+        </Layout>
     );
 };
 
