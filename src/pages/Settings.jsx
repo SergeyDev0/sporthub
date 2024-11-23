@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout/Layer";
+import Layer from "../components/Layout/Layer";
 import styles from "../styles/settings.module.scss";
 import Tabs from "@mui/material/Tabs";
 import axios from "axios";
@@ -156,7 +156,7 @@ const Settings = observer(() => {
     }
 
     return (
-        <Layout>
+        <Layer>
             <main className={styles.main}>
                 <Box
                     sx={{
@@ -376,7 +376,7 @@ const Settings = observer(() => {
                     </div>
                 </Box>
             </main>
-        </Layout>
+        </Layer>
     );
 });
 
