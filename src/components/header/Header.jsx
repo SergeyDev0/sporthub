@@ -11,6 +11,7 @@ import Logout from "@mui/icons-material/Logout";
 import {
     Favorite,
     Home,
+    Info,
     Notifications,
     Person,
     Search,
@@ -31,27 +32,7 @@ const Header = observer(() => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [notificationsEl, setNotificationsEl] = React.useState(null);
     const [inputValue, setInputValue] = React.useState("");
-    const [state, setState] = React.useState({ right: false });
     let { pathname } = useLocation();
-
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (
-            event.type === "keydown" &&
-            (event.key === "Tab" || event.key === "Shift")
-        ) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
-
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            console.log(inputValue);
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [inputValue]);
 
     const notificationsData = [
         {
@@ -86,63 +67,6 @@ const Header = observer(() => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-    const list = (anchor) => (
-        <Box
-            sx={{
-                width: anchor === "top" || anchor === "bottom" ? "auto" : 300,
-            }}
-            onClick={toggleDrawer(anchor, true)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-            <div className={styles.menuProfile}>
-                <Avatar
-                    style={{
-                        backgroundColor: globalStore.backgroundAvatar,
-                        color: globalStore.colorAvatar,
-                        boxShadow: `0 0 2px 1px ${globalStore.colorAvatar}`,
-                    }}
-                    sx={{ width: 100, height: 100 }}
-                >
-                    ДМ
-                </Avatar>
-                <div>
-                    <Link className={styles.menuLink} to="/profile">
-                        <ListItemIcon>
-                            <Person fontSize="small" />
-                        </ListItemIcon>
-                        Профиль
-                    </Link>
-                    <Link className={styles.menuLink} to="/settings">
-                        <ListItemIcon>
-                            <Settings fontSize="small" />
-                        </ListItemIcon>
-                        Настройки
-                    </Link>
-                    <Link className={styles.menuLink} to="/auth">
-                        <ListItemIcon>
-                            <Logout
-                                fontSize="small"
-                                style={{ color: "#dd0000" }}
-                            />
-                        </ListItemIcon>
-                        Выйти
-                    </Link>
-                </div>
-            </div>
-            <Divider />
-            <List>
-                <Link to="/" className={styles.burgerLink}>
-                    <Home fontSize="large" />
-                    <h2>Главная</h2>
-                </Link>
-                <Link to="/selected" className={styles.burgerLink}>
-                    <Favorite fontSize="large" />
-                    <h2>Избранное</h2>
-                </Link>
-            </List>
-        </Box>
-    );
 
     return (
         <header className={styles.header}>
@@ -191,19 +115,7 @@ const Header = observer(() => {
                         justifyContent={"flex-end"}
                         alignItems={"center"}
                     >
-                        <div className={styles.hamburger}>
-                            <Button onClick={toggleDrawer("right", true)}>
-                                <MenuIcon style={{ color: "white" }} />
-                            </Button>
-                            <Drawer
-                                anchor="right"
-                                open={state["right"]}
-                                onClose={toggleDrawer("right", false)}
-                            >
-                                {list("right")}
-                            </Drawer>
-                        </div>
-
+                        
                         <div className={styles.selected}>
                             <Link to="/" className={styles.selectedLink}>
                                 <Tooltip title="Домой">
@@ -391,47 +303,35 @@ const Header = observer(() => {
                                     vertical: "bottom",
                                 }}
                             >
-                                <MenuItem
-                                    onClick={handleClose}
-                                    style={{ padding: 0 }}
-                                >
-                                    <Link
-                                        className={styles.menuLink}
-                                        to="/profile"
-                                    >
+                                <MenuItem onClick={handleClose} style={{ padding: 0 }}>
+                                    <Link className={styles.menuLink} to="/profile">
                                         <ListItemIcon>
                                             <Person fontSize="small" />
                                         </ListItemIcon>
                                         Профиль
                                     </Link>
                                 </MenuItem>
-                                <MenuItem
-                                    onClick={handleClose}
-                                    style={{ padding: 0 }}
-                                >
-                                    <Link
-                                        className={styles.menuLink}
-                                        to="/settings"
-                                    >
+                                <MenuItem onClick={handleClose} style={{ padding: 0 }}>
+                                    <Link className={styles.menuLink} to="/settings">
                                         <ListItemIcon>
                                             <Settings fontSize="small" />
                                         </ListItemIcon>
                                         Настройки
                                     </Link>
                                 </MenuItem>
-                                <MenuItem
-                                    onClick={handleClose}
-                                    style={{ color: "#dd0000", padding: 0 }}
-                                >
-                                    <Link
-                                        className={styles.menuLink}
-                                        to="/auth"
-                                    >
+                                <MenuItem onClick={handleClose} style={{ padding: 0 }}>
+                                    <Link className={styles.menuLink} to="/about">
                                         <ListItemIcon>
-                                            <Logout
-                                                fontSize="small"
-                                                style={{ color: "#dd0000" }}
-                                            />
+                                            <Info fontSize="small" />
+                                        </ListItemIcon>
+                                        О платформе
+                                    </Link>
+                                </MenuItem>
+                                <Divider style={{marginTop: 2, marginBottom: 2}} />
+                                <MenuItem onClick={handleClose} style={{ color: "#dd0000", padding: 0 }}>
+                                    <Link className={styles.menuLink} to="/auth">
+                                        <ListItemIcon>
+                                            <Logout fontSize="small" style={{ color: "#dd0000" }} />
                                         </ListItemIcon>
                                         Выйти
                                     </Link>

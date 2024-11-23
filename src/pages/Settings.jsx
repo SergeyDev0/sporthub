@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout/Layer";
+import Layout from "../components/layout/Layout";
 import styles from "../styles/settings.module.scss";
 import Tabs from "@mui/material/Tabs";
 import axios from "axios";

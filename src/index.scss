@@ -74,3 +74,19 @@ button {
 input {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
+
+.MuiPaper-rounded {
+    border-radius: 16px !important;
+}
+
+.MuiDialog-paperScrollBody > .MuiTypography-root {
+    padding-bottom: 0;
+    padding-left: 2rem;
+    padding-right: 1rem;
+}
+
+@media (max-width: 700px) {
+    .MuiPaper-rounded {
+        width: 100%;
+    }   
+}

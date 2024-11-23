@@ -45,6 +45,12 @@
             gap: 6rem;
             margin-left: 0;
         }
+
+        @media screen and (max-width: 900px) {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
     }
 
     &Addr {
@@ -145,6 +151,11 @@
         gap: .5rem;
         flex-direction: column-reverse;
         align-items: center;
+    }
+
+    @media screen and (max-width: 900px) {
+        margin-top: 1.5rem;
+        text-align: center;
     }
 }
 

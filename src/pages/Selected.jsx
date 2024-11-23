@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/Layout/Layer";
+import Layout from "../components/layout/Layout";
 import styles from "../styles/selected.module.scss";
 import Slider from "@mui/material/Slider";
 import { Favorite } from "@mui/icons-material";

@@ -9,7 +9,7 @@ import CompleteProfile from "./pages/completeProfile";
 import Selected from "./pages/Selected";
 import globalStore from "./store/globalStore";
 import Profile from "./pages/profile";
-import "./index.css";
+import "./index.scss";
 
 function App() {
     React.useEffect(() => {

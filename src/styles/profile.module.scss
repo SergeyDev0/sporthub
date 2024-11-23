@@ -1,41 +1,118 @@
 .main {
-    width: 900px;    
+    display: flex;
+    flex-direction: column;
+    width: 1360px;    
     margin: 2rem auto;
+
+    @media (max-width: 1400px) {
+        width: 100%;
+        padding: 0 20px;
+    }
 }
 
 .profile {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
 
-    &Card {
-        height: fit-content;
-        width: calc((100% - 1rem) / 2);
-        padding: 10px 20px;
-        background: linear-gradient(to left top, #ff4b2c, #ff416b);
-        border-radius: 20px;
+    @media (max-width: 1400px) {            
+        padding: 0 20px;
     }
 
-    &Extra {
-        width: calc((100% - 1rem) / 2);
+    &Card {
+        display: flex;
+        gap: 1rem;
+        height: fit-content;
+        padding: 10px 20px;
+        background: linear-gradient(to right top, #ff4b2c, #ff416b);
+        color: #f2f2f2;
+        border-radius: 20px;
+
+        &Text {
+            margin: auto 0;
+        }
+    }
+
+    &Wrapper {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        gap: 1rem;
+        width: 60%;
+
+        @media (max-width: 1020px) {
+            width: 100%;   
+        }
+    }
+
+    &Preview {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
         gap: 1rem;
 
-        & :nth-child(n) {
-            background: #f2f1f0;
-            color: #999999;
+        &Achievs {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: #f2f2f2;
+            color: #000;
+            border-radius: 20px;
+            padding: 2rem;
+            font-weight: 400;
+
+            & > h3 {
+                font-weight: 600;
+                font-size: 24px;
+            }
+        }
+
+        &Subs {
+            background: #f2f2f2;
+            color: #000;
             border-radius: 20px;
             padding: 10px 20px;
-        }
 
-        &Achievements {
+            & > h3 {
+                font-size: 24px;
+            }
             
+            &Btn {
+                padding: 5px 10px;
+                margin: 0 10px;
+                background: #f2f1f0;
+                color: #ff416b;
+                font-weight: 700;
+                outline: 2px solid #ff416b;
+                border-radius: 10px;
+            }
         }
 
-        &Subscriptions {
-        
+        &Partic {
+            background: #f2f2f2;
+            color: #000;
+            border-radius: 20px;
+            padding: 10px 20px;
+
+            & > h3 {
+                font-size: 24px;
+            }
+        }
+
+        &Description {
+            display: flex;
+            align-items: center;
+            
+            & > h4 {
+                font-weight: 400;
+                font-size: 20px;
+                color: #929292;
+            }
+
+            & .icon {
+                color: #929292; 
+                margin-right: 16px;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 export const DEVS = [
     {
-        img: "../../assets/dev4.jpg",
+        img: "../../src/assets/dev4.jpg",
         name: "Усиков Сергей",
         role: "Frontend Developer",
         captain: false,

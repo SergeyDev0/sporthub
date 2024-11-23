@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 

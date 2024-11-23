@@ -1,0 +1,9 @@
+.selectedLink {
+    display: block;
+    width: 34px;
+    height: 34px;
+
+    & > button {
+        margin-left: 0;
+    }
+}

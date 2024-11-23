@@ -142,39 +142,10 @@
     padding: 10px;
 }
 
-.burgerLink {
-    display: flex;
-    gap: 1rem;
-    margin: 10px 10px;
-    font-size: 1em;
-}
 
-.selectedLink {
-    display: block;
-    width: 34px;
-    height: 34px;
-
-    & > button {
-        margin-left: 0;
-    }
-}
-
-.hamburger {
-    display: none !important;
-}
 
 @media (max-width: 900px) {
     .search {
         display: none;
-    }
-}
-
-@media (max-width: 550px) {
-    .search, .selected, .notifications, .headerAvatar {
-        display: none;
-    }
-
-    .hamburger {
-        display: block !important;
     }
 }
