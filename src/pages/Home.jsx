@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layout/Layer";
+import Layer from "../components/Layout/Layer";
 import styles from "../styles/home.module.scss";
 import Slider from "@mui/material/Slider";
 import arrowDown from "../assets/arrowDown.svg";
@@ -40,7 +40,7 @@ const Home = () => {
     const contentClass = !isColumnDisplay ? styles.row : "";
 
     return (
-        <Layout>
+        <Layer>
             <main className={styles.main}>
                 <div className={styles.filter}>
                     <div className={styles.filterCategory}>
@@ -285,7 +285,7 @@ const Home = () => {
                     </div>
                 </div>
             </main>
-        </Layout>
+        </Layer>
     );
 };
 

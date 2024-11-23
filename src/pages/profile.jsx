@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "../styles/profile.module.scss";
-import Layout from "../components/layout/Layer";
+import Layer from "../components/Layout/Layer";
 import Avatar from "@mui/material/Avatar";
 
 const Profile = () => {
     return (
-        <Layout>
+        <Layer>
             <main className={styles.main}>
                 <div className={styles.profile}>
                     <div className={styles.profileCard}>
@@ -30,7 +30,7 @@ const Profile = () => {
                     </div>
                 </div>
             </main>
-        </Layout>
+        </Layer>
     );
 };
 
