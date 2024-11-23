@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout/Layout.jsx";
 import Tabs from "@mui/material/Tabs";
+import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
