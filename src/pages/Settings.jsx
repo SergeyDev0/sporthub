@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Tabs from "@mui/material/Tabs";
-import Layout from "./../components/Layout/Layout";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 import axios from "axios";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -80,7 +81,7 @@ const Settings = observer(() => {
 
     let getDataProfile = async (e) => {
         let data = {
-            "jwt": globalStore.accessToken,
+            jwt: globalStore.accessToken,
         };
 
         let config = {
@@ -151,7 +152,8 @@ const Settings = observer(() => {
     }
 
     return (
-        <Layout>
+        <>
+            <Header />
             <main className={styles.main}>
                 <Box
                     sx={{
@@ -226,8 +228,13 @@ const Settings = observer(() => {
                                             <select
                                                 type="text"
                                                 onChange={(e) => {
-                                                    let value = Number(e.target.value) + 1;
-                                                    setCity(e.target.options[value].text);
+                                                    let value =
+                                                        Number(e.target.value) +
+                                                        1;
+                                                    setCity(
+                                                        e.target.options[value]
+                                                            .text
+                                                    );
                                                 }}
                                             >
                                                 <option
@@ -248,8 +255,13 @@ const Settings = observer(() => {
                                             <select
                                                 type="text"
                                                 onChange={(e) => {
-                                                    let value = Number(e.target.value) + 1;
-                                                    console.log(e.target.options[value].text);
+                                                    let value =
+                                                        Number(e.target.value) +
+                                                        1;
+                                                    console.log(
+                                                        e.target.options[value]
+                                                            .text
+                                                    );
                                                 }}
                                             >
                                                 <option
@@ -371,7 +383,8 @@ const Settings = observer(() => {
                     </div>
                 </Box>
             </main>
-        </Layout>
+            <Footer />
+        </>
     );
 });
 

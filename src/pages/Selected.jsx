@@ -2,17 +2,19 @@ import React from "react";
 import Slider from "@mui/material/Slider";
 import { Favorite } from "@mui/icons-material";
 import { HeartIcon } from "lucide-react";
-import Layout from "../components/Layout/Layout";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 import styles from "../styles/selected.module.scss";
 
 const Selected = () => {
     const [isColumnDisplay, setIsColumnDisplay] = React.useState(true);
     const [isSelected, setIsSelected] = React.useState(false);
-    
+
     const contentClass = !isColumnDisplay ? styles.row : "";
 
     return (
-        <Layout>
+        <>
+            <Header />
             <main className={styles.main}>
                 <div className={`${styles.content} ${contentClass}`}>
                     {/* {[].map((item, i) => (
@@ -378,7 +380,8 @@ const Selected = () => {
                     </ul>
                 </div>
             </main>
-        </Layout>
+            <Footer />
+        </>
     );
 };
 
