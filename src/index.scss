@@ -12,7 +12,7 @@ body,
 }
 
 body {
-    background: #faf9f5 !important;
+    background: #faf9f5;
 }
 
 a {
@@ -89,4 +89,8 @@ input {
     .MuiPaper-rounded {
         width: 100%;
     }   
+}
+
+.dark input, .dark select {
+    color: #000;
 }

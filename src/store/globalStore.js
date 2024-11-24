@@ -1,4 +1,9 @@
 import { makeAutoObservable } from "mobx";
+import { configure } from "mobx"
+
+configure({
+    enforceActions: "never",
+})
 
 class GlobalStore {
   backgroundAvatar = "#fff";

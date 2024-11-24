@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/darkLogo.svg";
 import styles from "../styles/auth.module.scss";
@@ -33,9 +34,10 @@ const Auth = observer(() => {
 
     let postAuth = async (e) => {
         e.preventDefault();
-        let data = new FormData();
-        data.append("email", email);
-        data.append("password", password);
+        let data = {
+            email: email,
+            password: password,
+        };
 
         if ((email.length > 0, password.length > 0)) {
             let config = {
@@ -45,7 +47,7 @@ const Auth = observer(() => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                data: data,
+                data: JSON.stringify(data),
             };
 
             axios
@@ -57,6 +59,7 @@ const Auth = observer(() => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    console.log(JSON.stringify(data))
                 });
         }
     };
@@ -88,6 +91,7 @@ const Auth = observer(() => {
                 })
                 .catch((error) => {
                     console.log(error);
+                    console.log(data)
                 });
         }
     };

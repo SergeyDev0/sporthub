@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import { CITIES } from "../data/cities.data.js";
 import PropTypes from "prop-types";
 import arrowDown from "../assets/arrowDown.svg";
-import { Avatar } from "@mui/material";
+import { Avatar, useColorScheme } from "@mui/material";
 import { Close, Password } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
@@ -19,13 +19,9 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { HexColorPicker } from "react-colorful";
-import {
-    ThemeProvider,
-    createTheme,
-    useColorScheme,
-} from "@mui/material/styles";
 import { observer } from "mobx-react-lite";
 import globalStore from "../store/globalStore";
+import { UserRoundCog, BellDot, SunMoon } from "lucide-react";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -38,7 +34,7 @@ function TabPanel(props) {
             aria-labelledby={`vertical-tab-${index}`}
             {...other}
         >
-            {value === index && (
+            {(value === index || value === index + 3) && (
                 <Box sx={{ p: 3 }}>
                     <Typography>{children}</Typography>
                 </Box>
@@ -69,13 +65,18 @@ const getLuminance = (hex) => {
 
 const Settings = observer(() => {
     const [value, setValue] = useState(0);
-    const [mode, setMode] = useState(0);
     const [color, setColor] = useState("#fff");
     const [fullName, setFullName] = React.useState("");
     const [age, setAge] = React.useState("");
     const [gender, setGender] = React.useState("");
     const [city, setCity] = React.useState("");
     const [data, setData] = React.useState({});
+
+    const { mode, setMode } = useColorScheme();
+
+    if (!mode) {
+        return null;
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -85,7 +86,7 @@ const Settings = observer(() => {
 
     let getDataProfile = async (e) => {
         let data = {
-            "jwt": globalStore.accessToken,
+            jwt: globalStore.accessToken,
         };
 
         let config = {
@@ -174,6 +175,7 @@ const Settings = observer(() => {
                         aria-label="Vertical tabs example"
                         sx={{ borderRight: 1, borderColor: "divider" }}
                         style={{ paddingTop: 40 }}
+                        className={styles.menuLabels}
                     >
                         <Tab
                             label="Личные данные"
@@ -197,6 +199,38 @@ const Settings = observer(() => {
                             }}
                         />
                     </Tabs>
+                    <Tabs
+                        orientation="vertical"
+                        variant="scrollable"
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="Vertical tabs example"
+                        sx={{ borderRight: 1, borderColor: "divider" }}
+                        style={{ paddingTop: 40 }}
+                        className={styles.menuIcons}
+                    >
+                        <Tab
+                            icon={<UserRoundCog size={48} color="#ff4a2c" />}
+                            {...a11yProps(0)}
+                            style={{
+                                ...(value === 0 ? { color: "#ff4a2c" } : {}),
+                            }}
+                        />
+                        <Tab
+                            icon={<BellDot size={48} color="#ff4a2c" />}
+                            {...a11yProps(1)}
+                            style={{
+                                ...(value === 1 ? { color: "#ff4a2c" } : {}),
+                            }}
+                        />
+                        <Tab
+                            icon={<SunMoon size={48} color="#ff4a2c" />}
+                            {...a11yProps(2)}
+                            style={{
+                                ...(value === 2 ? { color: "#ff4a2c" } : {}),
+                            }}
+                        />
+                    </Tabs>
                     <TabPanel
                         value={value}
                         index={0}
@@ -205,6 +239,26 @@ const Settings = observer(() => {
                         <form onSubmit={postDataProfile}>
                             <div className={styles.settings}>
                                 <ul>
+                                    <li>
+                                        <div className={styles.verticalFlex}>
+                                            <Avatar
+                                                className={
+                                                    styles.settingsAvatar
+                                                }
+                                                style={{
+                                                    backgroundColor: color,
+                                                    color: colorAvatar(color),
+                                                }}
+                                                sx={{ width: 150, height: 150 }}
+                                            >
+                                                <p>ДМ</p>
+                                            </Avatar>
+                                            <HexColorPicker
+                                                color={color}
+                                                onChange={setColor}
+                                            />
+                                        </div>
+                                    </li>
                                     <li>
                                         <input
                                             className={styles.settingsInput}
@@ -231,8 +285,13 @@ const Settings = observer(() => {
                                             <select
                                                 type="text"
                                                 onChange={(e) => {
-                                                    let value = Number(e.target.value) + 1;
-                                                    console.log(e.target.options[value].text);
+                                                    let value =
+                                                        Number(e.target.value) +
+                                                        1;
+                                                    console.log(
+                                                        e.target.options[value]
+                                                            .text
+                                                    );
                                                 }}
                                             >
                                                 <option
@@ -255,6 +314,8 @@ const Settings = observer(() => {
                                                 <img src={arrowDown} />
                                             </div>
                                         </div>
+                                    </li>
+                                    <li>
                                         <button
                                             className={styles.settingsButton}
                                             type="submit"
@@ -263,22 +324,6 @@ const Settings = observer(() => {
                                         </button>
                                     </li>
                                 </ul>
-                                <div className={styles.verticalFlex}>
-                                    <Avatar
-                                        className={styles.settingsAvatar}
-                                        style={{
-                                            backgroundColor: color,
-                                            color: colorAvatar(color),
-                                        }}
-                                        sx={{ width: 150, height: 150 }}
-                                    >
-                                        <p>ДМ</p>
-                                    </Avatar>
-                                    <HexColorPicker
-                                        color={color}
-                                        onChange={setColor}
-                                    />
-                                </div>
                             </div>
                         </form>
                     </TabPanel>
@@ -288,19 +333,26 @@ const Settings = observer(() => {
                         className={styles.tabPanel}
                     >
                         <div className={styles.settings}>
-                            <p>Получать уведомления от </p>
-                            <div className={styles.wrapperInput}>
-                                <select
-                                    type="text"
-                                    name="notification"
-                                    defaultValue="none"
+                            <div>
+                                <p>Получать уведомления от </p>
+                                <div
+                                    className={`${styles.wrapperInput} ${styles.wrapperInputSolo}`}
                                 >
-                                    <option value="none">Нет</option>
-                                    <option value="option1"></option>
-                                    <option value="option2"></option>
-                                </select>
-                                <div className={styles.inputArrow}>
-                                    <img src={arrowDown} />
+                                    <select
+                                        type="text"
+                                        name="notification"
+                                        defaultValue="none"
+                                    >
+                                        <option value="all">Все</option>
+                                        <option value="subs">Подписки</option>
+                                        <option value="partic">
+                                            Мероприятия, в которых участвую
+                                        </option>
+                                        <option value="none">Нет</option>
+                                    </select>
+                                    <div className={styles.inputArrow}>
+                                        <img src={arrowDown} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -317,10 +369,10 @@ const Settings = observer(() => {
                             <RadioGroup
                                 aria-labelledby="demo-theme-toggle"
                                 name="theme-toggle"
-                                row
-                                value={mode}
+                                value={globalStore.themeMode}
                                 onChange={(event) => {
                                     setMode(event.target.value);
+                                    globalStore.getTheme(event.target.value);
                                 }}
                             >
                                 <FormControlLabel
@@ -332,17 +384,11 @@ const Settings = observer(() => {
                                 />
                                 <FormControlLabel
                                     value="dark"
+                                    name="theme-toggle"
                                     control={
                                         <Radio style={{ color: "#2f2f2f" }} />
                                     }
                                     label="Темная"
-                                />
-                                <FormControlLabel
-                                    value="system"
-                                    control={
-                                        <Radio style={{ color: "#2f2f2f" }} />
-                                    }
-                                    label="Система"
                                 />
                             </RadioGroup>
                         </FormControl>

@@ -19,6 +19,7 @@ const SearchBar = () => {
                 type="text"
                 placeholder="Найти мероприятие"
                 onChange={(e) => setInputValue(e.target.value)}
+                id="searchInput"
             />
             <Search
                 className={styles.searchIcon}

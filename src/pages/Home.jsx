@@ -20,16 +20,16 @@ const Home = () => {
     const [isColumnDisplay, setIsColumnDisplay] = React.useState(true);
     const [isActiveFilterButton, setIsActiveFilterButton] = React.useState(1);
     const [quantity, setQuantity] = React.useState([1, 5000]);
-    const [deadlineStart, setDeadlineStart] = React.useState("0001-01-01");
-    const [deadlineEnd, setDeadlineEnd] = React.useState("9999-12-31");
-    const [place, setPlace] = React.useState("");
-    const [filter, setFiter] = React.useState({
-        deadlineStart: deadlineStart,
-        deadlineEnd: deadlineEnd,
-        countPeopleMin: quantity[0],
-        countPeopleMax: quantity[1],
-        place: place,
-        quality: quantity,
+    const [filter, setFilter] = React.useState({
+        deadlineStart: "0001-01-01",
+        deadlineEnd: "9999-12-31",
+        countPeopleMin: 1,
+        countPeopleMax: 5000,
+        typeSport: "",
+        country: "",
+        place: "",
+        page: 1,
+        count: 24,
     });
     const [open, setOpen] = React.useState(false);
 
@@ -43,6 +43,12 @@ const Home = () => {
 
     const handleAgeChange = (event, newValue) => {
         setQuantity(newValue);
+        setFilter((prevState) => ({
+            ...prevState,
+            countPeopleMin: newValue[0],
+            countPeopleMax: newValue[1],
+        }));
+        console.log(filter)
     };
 
     const contentClass = !isColumnDisplay ? styles.row : "";
@@ -70,19 +76,29 @@ const Home = () => {
                         </Button>
                     </div>
                 </DialogTitle>
-                <div className={`${styles.filter} ${styles.filterModal} mobile`}>
+                <div
+                    className={`${styles.filter} ${styles.filterModal} mobile`}
+                >
                     <div className={styles.filterCategory}>
                         <h3>Сроки проведения</h3>
                         <div className={styles.filterDate}>
                             <input
-                                onChange={(e) =>
-                                    console.log(e.target.value)
-                                }
+                                onChange={(e) => {
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: e.target.value,
+                                    }));
+                                }}
                                 type="date"
                                 id="startDate"
                             />
                             <input
-                                onChange={() => setDeadlineEnd(e.target.value)}
+                                onChange={(e) => {
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineEnd: e.target.value,
+                                    }));
+                                }}
                                 type="date"
                                 id="endDate"
                             />
@@ -92,283 +108,114 @@ const Home = () => {
                     <div className={styles.filterCategory}>
                         <div className={styles.filterButtonContainer}>
                             <button
-                                onClick={() => setIsActiveFilterButton(1)}
-                                className={`
+                                onClick={() => {
+                                    setIsActiveFilterButton(1);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setDate(date.getDate() + 7);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
                                     ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 1
-                                ? ` ${styles.active}` : "")}
-                            >
-                                1 нед.
-                            </button>
-                            <button
-                                onClick={() => setIsActiveFilterButton(2)}
-                                className={`
-                                    ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 2
-                                ? ` ${styles.active}` : "")}
-                            >
-                                1 мес.
-                            </button>
-                            <button
-                                onClick={() => setIsActiveFilterButton(3)}
-                                className={`
-                                    ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 3
-                                ? ` ${styles.active}` : "")}
-                            >
-                                3 мес.
-                            </button>
-                            <button
-                                onClick={() => setIsActiveFilterButton(4)}
-                                className={`
-                                    ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 4
-                                ? ` ${styles.active}` : "")}
-                            >
-                                6 мес.
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <h3>Дисциплина</h3>
-                        <div className={styles.wrapperInput}>
-                            <select
-                                className={styles.filterSelect}
-                                name="discipline"
-                                defaultValue="none"
-                                disabled
-                            >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
-                            </select>
-                            <div className={styles.inputArrow}>
-                                <img src={arrowDown} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <h3>Вид спорта</h3>
-                        <div className={styles.wrapperInput}>
-                            <select
-                                className={styles.filterSelect}
-                                name="sportType"
-                                defaultValue="none"
-                                onChange={() => setSport(e.target.value)}
-                            >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
-                            </select>
-                            <div className={styles.inputArrow}>
-                                <img src={arrowDown} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <h3>Программа</h3>
-                        <div className={styles.wrapperInput}>
-                            <select
-                                className={styles.filterSelect}
-                                name="programm"
-                                defaultValue="none"
-                                disabled
-                            >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
-                            </select>
-                            <div className={styles.inputArrow}>
-                                <img src={arrowDown} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <h3>Место проведения</h3>
-                        <div className={styles.wrapperInput}>
-                            <select
-                                className={styles.filterSelect}
-                                name="placing"
-                                defaultValue="none"
-                                onChange={() => setPlace(e.target.value)}
-                            >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
-                            </select>
-                            <div className={styles.inputArrow}>
-                                <img src={arrowDown} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <h3>Количество участников</h3>
-                        <Slider
-                            value={quantity}
-                            onChange={handleAgeChange}
-                            valueLabelDisplay="auto"
-                            min={1}
-                            max={1000}
-                            style={{ color: "#ff4a2c" }}
-                        />
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <div>
-                            <h3>Пол</h3>
-                            <div className={styles.radio}>
-                                <input
-                                    defaultChecked
-                                    type="radio"
-                                    name="gender"
-                                    id="other"
-                                    onChange={() => setGender(e.target.value)}
-                                />
-                                <label htmlFor="other">Любой</label>
-                            </div>
-                            <div className={styles.radio}>
-                                <input
-                                    type="radio"
-                                    name="gender"
-                                    id="female"
-                                    onChange={() => setGender(e.target.value)}
-                                />
-                                <label htmlFor="female">Мужчина</label>
-                            </div>
-                            <div className={styles.radio}>
-                                <input
-                                    type="radio"
-                                    name="gender"
-                                    id="male"
-                                    onChange={() => setGender(e.target.value)}
-                                />
-                                <label htmlFor="male">Женщина</label>
-                            </div>
-                        </div>
-                        <div className={styles.filterCategory}>
-                            <h3>Возрастная группа</h3>
-                            <div className={styles.wrapperInput}>
-                                <select
-                                    className={styles.filterSelect}
-                                    name="age"
-                                    defaultValue="none"
-                                    onChange={() => setAge(e.target.value)}
-                                >
-                                    <option selected value="none">
-                                        Любой
-                                    </option>
-                                    <option value="option1">До 14 лет</option>
-                                    <option value="option1">14-16 лет</option>
-                                    <option value="option2">16-18 лет</option>
-                                    <option value="option2">От 18 лет</option>
-                                </select>
-                                <div className={styles.inputArrow}>
-                                    <img src={arrowDown} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <h3>Тип соревнования</h3>
-                        <div className={styles.wrapperInput}>
-                            <select
-                                className={styles.filterSelect}
-                                name="competitionType"
-                                defaultValue="none"
-                                disabled
-                            >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
-                            </select>
-                            <div className={styles.inputArrow}>
-                                <img src={arrowDown} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className={`${styles.filterButtonContainer} ${styles.modalGroupBtns}`}>
-                        <button
-                            className={styles.filterButton}
-                        >
-                            Сохранить
-                        </button>
-                        <button
-                            className={`${styles.filterButton} ${styles.filterReset}`}
-                        >
-                            Cбросить
-                        </button>
-                    </div>
-                </div>
-            </Dialog>
-            <main className={styles.main}>
-                <div className={styles.filter}>
-                    <div className={styles.filterCategory}>
-                        <h3>Сроки проведения</h3>
-                        <div className={styles.filterDate}>
-                            <input
-                                onChange={() =>
-                                    setDeadlineStart(e.target.value)
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 1
+                                        ? ` ${styles.active}`
+                                        : "")
                                 }
-                                type="date"
-                                id="startDate"
-                            />
-                            <input
-                                onChange={() => setDeadlineEnd(e.target.value)}
-                                type="date"
-                                id="endDate"
-                            />
-                        </div>
-                    </div>
-
-                    <div className={styles.filterCategory}>
-                        <div className={`${styles.filterButtonContainer}`}>
-                            <button
-                                onClick={() => setIsActiveFilterButton(1)}
-                                className={`
-                                    ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 1
-                                ? ` ${styles.active}` : "")}
                             >
                                 1 нед.
                             </button>
                             <button
-                                onClick={() => setIsActiveFilterButton(2)}
-                                className={`
+                                onClick={() => {
+                                    setIsActiveFilterButton(2);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setMonth(date.getMonth() + 1);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
                                     ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 2
-                                ? ` ${styles.active}` : "")}
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 2
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
                             >
                                 1 мес.
                             </button>
                             <button
-                                onClick={() => setIsActiveFilterButton(3)}
-                                className={`
+                                onClick={() => {
+                                    setIsActiveFilterButton(3);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setMonth(date.getMonth() + 3);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
                                     ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 3
-                                ? ` ${styles.active}` : "")}
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 3
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
                             >
                                 3 мес.
                             </button>
                             <button
-                                onClick={() => setIsActiveFilterButton(4)}
-                                className={`
+                                onClick={() => {
+                                    setIsActiveFilterButton(4);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setMonth(date.getMonth() + 6);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
                                     ${styles.filterButton} 
-                                    ${styles.filterButtonPreset}`
-                                + (isActiveFilterButton === 4
-                                ? ` ${styles.active}` : "")}
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 4
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
                             >
                                 6 мес.
                             </button>
@@ -384,9 +231,7 @@ const Home = () => {
                                 defaultValue="none"
                                 disabled
                             >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
+                                <option selected disabled value="none">Любой</option>
                             </select>
                             <div className={styles.inputArrow}>
                                 <img src={arrowDown} />
@@ -399,13 +244,18 @@ const Home = () => {
                         <div className={styles.wrapperInput}>
                             <select
                                 className={styles.filterSelect}
+                                type="text"
                                 name="sportType"
-                                defaultValue="none"
-                                onChange={() => setSport(e.target.value)}
+                                onChange={(e) => {
+                                    let value = Number(e.target.value);
+                                    let a = e.target.options[value].text;
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        typeSport: a,
+                                    }));
+                                }}
                             >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
+                                <option selected disabled value="0">Любой</option>
                             </select>
                             <div className={styles.inputArrow}>
                                 <img src={arrowDown} />
@@ -423,8 +273,6 @@ const Home = () => {
                                 disabled
                             >
                                 <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
                             </select>
                             <div className={styles.inputArrow}>
                                 <img src={arrowDown} />
@@ -439,11 +287,18 @@ const Home = () => {
                                 className={styles.filterSelect}
                                 name="placing"
                                 defaultValue="none"
-                                onChange={() => setPlace(e.target.value)}
+                                onChange={(e) => {
+                                    let value = Number(e.target.value);
+                                    let a = e.target.options[value].text;
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        place: a,
+                                    }));
+                                }}
                             >
-                                <option value="none">Любой</option>
-                                <option value="option1"></option>
-                                <option value="option2"></option>
+                                <option value="0">Любой</option>
+                                <option value="1"></option>
+                                <option value="2"></option>
                             </select>
                             <div className={styles.inputArrow}>
                                 <img src={arrowDown} />
@@ -468,29 +323,29 @@ const Home = () => {
                             <h3>Пол</h3>
                             <div className={styles.radio}>
                                 <input
-                                    type="radio"
-                                    name="gender1"
-                                    id="other"
-                                    onChange={(e) => setGender(e.target.value)}
                                     defaultChecked
+                                    type="radio"
+                                    name="gender"
+                                    id="other"
+                                    disabled
                                 />
                                 <label htmlFor="other">Любой</label>
                             </div>
                             <div className={styles.radio}>
                                 <input
                                     type="radio"
-                                    name="gender1"
+                                    name="gender"
                                     id="female"
-                                    onChange={(e) => setGender(e.target.value)}
+                                    disabled
                                 />
                                 <label htmlFor="female">Мужчина</label>
                             </div>
                             <div className={styles.radio}>
                                 <input
                                     type="radio"
-                                    name="gender1"
+                                    name="gender"
                                     id="male"
-                                    onChange={(e) => setGender(e.target.value)}
+                                    disabled
                                 />
                                 <label htmlFor="male">Женщина</label>
                             </div>
@@ -502,18 +357,15 @@ const Home = () => {
                                     className={styles.filterSelect}
                                     name="age"
                                     defaultValue="none"
-                                    onChange={(e) => {
-                                        setGender(e.target.value);
-                                        console.log(e.target.value);
-                                    }}
+                                    disabled
                                 >
-                                    <option selected value="none">
+                                    <option disabled selected value="none">
                                         Любой
                                     </option>
                                     <option value="option1">До 14 лет</option>
-                                    <option value="option2">14-16 лет</option>
-                                    <option value="option3">16-18 лет</option>
-                                    <option value="option4">От 18 лет</option>
+                                    <option value="option1">14-16 лет</option>
+                                    <option value="option2">16-18 лет</option>
+                                    <option value="option2">От 18 лет</option>
                                 </select>
                                 <div className={styles.inputArrow}>
                                     <img src={arrowDown} />
@@ -538,16 +390,343 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.filterButtonContainer}>
-                        <button
-                            className={styles.filterButton}
-                            // onClick={}
-                        >
+                    <div
+                        className={`${styles.filterButtonContainer} ${styles.modalGroupBtns}`}
+                    >
+                        <button className={styles.filterButton}>
                             Сохранить
                         </button>
                         <button
                             className={`${styles.filterButton} ${styles.filterReset}`}
-                            // onClick={}
+                        >
+                            Cбросить
+                        </button>
+                    </div>
+                </div>
+            </Dialog>
+            <main className={styles.main}>
+            <div
+                    className={`${styles.filter}`}
+                >
+                    <div className={styles.filterCategory}>
+                        <h3>Сроки проведения</h3>
+                        <div className={styles.filterDate}>
+                            <input
+                                onChange={(e) => {
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: e.target.value,
+                                    }));
+                                }}
+                                type="date"
+                                id="startDate"
+                            />
+                            <input
+                                onChange={(e) => {
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineEnd: e.target.value,
+                                    }));
+                                }}
+                                type="date"
+                                id="endDate"
+                            />
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <div className={styles.filterButtonContainer}>
+                            <button
+                                onClick={() => {
+                                    setIsActiveFilterButton(1);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setDate(date.getDate() + 7);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
+                                    ${styles.filterButton} 
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 1
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
+                            >
+                                1 нед.
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setIsActiveFilterButton(2);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setMonth(date.getMonth() + 1);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
+                                    ${styles.filterButton} 
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 2
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
+                            >
+                                1 мес.
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setIsActiveFilterButton(3);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setMonth(date.getMonth() + 3);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
+                                    ${styles.filterButton} 
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 3
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
+                            >
+                                3 мес.
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setIsActiveFilterButton(4);
+                                    let date = new Date();
+                                    const year1 = String(date.getFullYear());
+                                    const month1 = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day1 = String(date.getDate()).padStart(2, '0');
+                                    date.setMonth(date.getMonth() + 6);
+                                    const year = String(date.getFullYear());
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        deadlineStart: `${year1}-${month1}-${day1}`,
+                                        deadlineEnd: `${year}-${month}-${day}`,
+                                    }));
+                                }}
+                                className={
+                                    `
+                                    ${styles.filterButton} 
+                                    ${styles.filterButtonPreset}` +
+                                    (isActiveFilterButton === 4
+                                        ? ` ${styles.active}`
+                                        : "")
+                                }
+                            >
+                                6 мес.
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <h3>Дисциплина</h3>
+                        <div className={styles.wrapperInput}>
+                            <select
+                                className={styles.filterSelect}
+                                name="discipline"
+                                defaultValue="none"
+                                disabled
+                            >
+                                <option selected disabled value="none">Любой</option>
+                            </select>
+                            <div className={styles.inputArrow}>
+                                <img src={arrowDown} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <h3>Вид спорта</h3>
+                        <div className={styles.wrapperInput}>
+                            <select
+                                className={styles.filterSelect}
+                                type="text"
+                                name="sportType"
+                                onChange={(e) => {
+                                    let value = Number(e.target.value);
+                                    let a = e.target.options[value].text;
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        typeSport: a,
+                                    }));
+                                }}
+                            >
+                                <option selected disabled value="0">Любой</option>
+                            </select>
+                            <div className={styles.inputArrow}>
+                                <img src={arrowDown} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <h3>Программа</h3>
+                        <div className={styles.wrapperInput}>
+                            <select
+                                className={styles.filterSelect}
+                                name="programm"
+                                defaultValue="none"
+                                disabled
+                            >
+                                <option value="none">Любой</option>
+                            </select>
+                            <div className={styles.inputArrow}>
+                                <img src={arrowDown} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <h3>Место проведения</h3>
+                        <div className={styles.wrapperInput}>
+                            <select
+                                className={styles.filterSelect}
+                                name="placing"
+                                defaultValue="none"
+                                onChange={(e) => {
+                                    let value = Number(e.target.value);
+                                    let a = e.target.options[value].text;
+                                    setFilter((prevState) => ({
+                                        ...prevState,
+                                        place: a,
+                                    }));
+                                }}
+                            >
+                                <option value="0">Любой</option>
+                                <option value="1"></option>
+                                <option value="2"></option>
+                            </select>
+                            <div className={styles.inputArrow}>
+                                <img src={arrowDown} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <h3>Количество участников</h3>
+                        <Slider
+                            value={quantity}
+                            onChange={handleAgeChange}
+                            valueLabelDisplay="auto"
+                            min={1}
+                            max={5000}
+                            style={{ color: "#ff4a2c" }}
+                        />
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <div>
+                            <h3>Пол</h3>
+                            <div className={styles.radio}>
+                                <input
+                                    defaultChecked
+                                    type="radio"
+                                    name="gender"
+                                    id="other"
+                                    disabled
+                                />
+                                <label htmlFor="other">Любой</label>
+                            </div>
+                            <div className={styles.radio}>
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    id="female"
+                                    disabled
+                                />
+                                <label htmlFor="female">Мужчина</label>
+                            </div>
+                            <div className={styles.radio}>
+                                <input
+                                    type="radio"
+                                    name="gender"
+                                    id="male"
+                                    disabled
+                                />
+                                <label htmlFor="male">Женщина</label>
+                            </div>
+                        </div>
+                        <div className={styles.filterCategory}>
+                            <h3>Возрастная группа</h3>
+                            <div className={styles.wrapperInput}>
+                                <select
+                                    className={styles.filterSelect}
+                                    name="age"
+                                    defaultValue="none"
+                                    disabled
+                                >
+                                    <option disabled selected value="none">
+                                        Любой
+                                    </option>
+                                    <option value="option1">До 14 лет</option>
+                                    <option value="option1">14-16 лет</option>
+                                    <option value="option2">16-18 лет</option>
+                                    <option value="option2">От 18 лет</option>
+                                </select>
+                                <div className={styles.inputArrow}>
+                                    <img src={arrowDown} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterCategory}>
+                        <h3>Тип соревнования</h3>
+                        <div className={styles.wrapperInput}>
+                            <select
+                                className={styles.filterSelect}
+                                name="competitionType"
+                                defaultValue="none"
+                                disabled
+                            >
+                                <option value="none">Любой</option>
+                            </select>
+                            <div className={styles.inputArrow}>
+                                <img src={arrowDown} />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className={`${styles.filterButtonContainer} ${styles.modalGroupBtns}`}
+                    >
+                        <button className={styles.filterButton}>
+                            Сохранить
+                        </button>
+                        <button
+                            className={`${styles.filterButton} ${styles.filterReset}`}
                         >
                             Cбросить
                         </button>

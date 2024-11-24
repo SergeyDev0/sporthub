@@ -268,12 +268,15 @@
 
     .container {
         width: 385px;
+        
+        & form {            
+            padding: 0 25px !important;
+        }
     }
     
     .formContainer {
-        padding: 0 30px !important;
         transform: translate(0) !important;
-        width: 100%;
+        width: 100%;        
     }
 
     .overlayContainer {
